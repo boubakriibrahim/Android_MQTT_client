@@ -18,12 +18,12 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class MainActivity extends AppCompatActivity {
 
-    static String MQTTHOST = "tcp://tailor.cloudmqtt.com:12519";
-    static String USERNAME = "qzzuvacg";
-    static String PASSWORD = "hbhVYxRLlRBc";
+    static String MQTTHOST = "ssl://stiot-r7rzef0ywxpz.cedalo.cloud:8883";
+    static String USERNAME = "android";
+    static String PASSWORD = "android";
     MqttAndroidClient client;
     TextView txtStatusTemp;
-    String topicoTemperatura = "Temperatura";
+    String topicoTemperatura = "example/Temperature";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +46,13 @@ public class MainActivity extends AppCompatActivity {
             token.setActionCallback(new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    Toast.makeText(MainActivity.this,"Conectado ao Servidor", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"Connection au server", Toast.LENGTH_LONG).show();
                     setSubscrition();
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Toast.makeText(MainActivity.this, "Desconectado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Deconnection", Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void messageArrived(String topic, MqttMessage message) throws Exception {
 
-                if(topic.toString().equals("Temperatura")){
+                if(topic.toString().equals("example/Temperature")){
                     txtStatusTemp.setText(new String(message.getPayload()));
                 }
             }
